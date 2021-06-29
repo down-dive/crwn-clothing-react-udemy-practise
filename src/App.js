@@ -7,8 +7,18 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header.component/header.component.jsx'
 import SignInAndSignUpPage from './pages/sing-in-and-sign-up/sign-in-and-sign-up.component';
+import { auth } from './firebase/firebase.utils';
 
-function App() {
+class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      currentUser: null
+    }
+  }
+
+  render() {
   return (
     <div>
       <Header />
@@ -19,6 +29,7 @@ function App() {
       </Switch>
     </div>
   );
+}
 }
 
 export default App;
