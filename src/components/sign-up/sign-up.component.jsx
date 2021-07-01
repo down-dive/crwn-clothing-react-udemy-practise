@@ -16,6 +16,24 @@ class SignUp extends React.Component {
             confirmPassword: ''
         }
     }
+
+    handleSubmit = async event => {
+        event.preventDefault();
+
+        const { displayName, email, password, confirmPassword } = this.state;
+
+        if(password !== confirmPassword) {
+            alert("passwords don't match!");
+            return;
+        }
+        try {
+            const { user } = await auth.createUserWithEmailAndPassword(email, password);
+
+            createUserProfileDocument(user, { displayName });
+        } catch (error) {
+            console.error(error)
+        }
+    }
     render() {
         return (
             <div className='sign-up'>
@@ -28,11 +46,34 @@ class SignUp extends React.Component {
                         value={displayName}
                         label='Display Name'
                         required
-                    >
-                    </FormInput>
+                    />
+                    <FormInput
+                        type="email"
+                        name='email'
+                        value={email}
+                        label='Email'
+                        required
+                    />
+                    <FormInput
+                        type="passworkt"
+                        name='password'
+                        value={password}
+                        label='Password'
+                        required
+                    />
+                    <FormInput
+                        type="password"
+                        name='confirmPassword'
+                        value={confirmPassword}
+                        label='Confirm Password'
+                        required
+                    />
+                    <CustomButton type='submit'>SIGN UP</CustomButton>
                 </form>
             </div>
         )
     }
 }
+
+export default SignUp;
 
